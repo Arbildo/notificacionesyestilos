@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_menuylayout" default="compile.module.menuylayout">
+  <dirname property="module.menuylayout.basedir" file="${ant.file.module_menuylayout}"/>
+  
+  <property name="module.jdk.home.menuylayout" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.menuylayout" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.menuylayout" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.menuylayout" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="menuylayout.output.dir" value="${module.menuylayout.basedir}/build/classes/production/menuylayout"/>
+  <property name="menuylayout.testoutput.dir" value="${module.menuylayout.basedir}/build/classes/test/menuylayout"/>
+  
+  <path id="menuylayout.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="menuylayout.module.production.classpath">
+    <path refid="${module.jdk.classpath.menuylayout}"/>
+  </path>
+  
+  <path id="menuylayout.runtime.production.module.classpath">
+    <pathelement location="${menuylayout.output.dir}"/>
+  </path>
+  
+  <path id="menuylayout.module.classpath">
+    <path refid="${module.jdk.classpath.menuylayout}"/>
+    <pathelement location="${menuylayout.output.dir}"/>
+  </path>
+  
+  <path id="menuylayout.runtime.module.classpath">
+    <pathelement location="${menuylayout.testoutput.dir}"/>
+    <pathelement location="${menuylayout.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.menuylayout">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.menuylayout">
+    <patternset refid="excluded.from.module.menuylayout"/>
+  </patternset>
+  
+  
+  <target name="compile.module.menuylayout" depends="compile.module.menuylayout.production,compile.module.menuylayout.tests" description="Compile module menuylayout"/>
+  
+  <target name="compile.module.menuylayout.production" depends="register.custom.compilers" description="Compile module menuylayout; production classes"/>
+  
+  <target name="compile.module.menuylayout.tests" depends="register.custom.compilers,compile.module.menuylayout.production" description="compile module menuylayout; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.menuylayout" description="cleanup module">
+    <delete dir="${menuylayout.output.dir}"/>
+    <delete dir="${menuylayout.testoutput.dir}"/>
+  </target>
+</project>
